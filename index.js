@@ -30,10 +30,6 @@ const fetchAll = async (url, resp) => {
       let name = w.trim().toLowerCase();
       await axios(`${url}/${name}`, {
         headers: { app_id: app_id, app_key: app_key },
-        target: "https://od-api.oxforddictionaries.com/api/v1/entries/en-gb/",
-        secure: false,
-        changeOrigin: true,
-        logLevel: "debug",
       })
         .then((r) => {
           let dataForFile = JSON.stringify(r.data);
