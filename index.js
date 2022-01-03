@@ -12,7 +12,7 @@ const fs = require("fs");
 // adam
 let app_id = "b2ec966e";
 let app_key = "b67d0c0def9db7bdb0f29a056424e510";
-let language = "en-gb";
+let language = "en";
 
 b_url = `https://od-api.oxforddictionaries.com:443/api/v2/entries/${language}`;
 
