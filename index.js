@@ -25,10 +25,10 @@ and`;
 words = words.split("\n");
 
 const fetchAll = async (url) => {
-  const res = await Promise.all(
+  return await Promise.all(
     words.map(async (w) => {
       let name = w.trim().toLowerCase();
-      await axios(`${url}/${name}`, {
+      return await axios(`${url}/${name}`, {
         headers: { app_id: app_id, app_key: app_key },
       })
         .then((r) => {
@@ -39,7 +39,7 @@ const fetchAll = async (url) => {
           });
         })
         .catch((err) => {
-          return err;
+          console.log(err);
         });
     })
   );
