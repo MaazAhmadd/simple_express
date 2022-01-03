@@ -37,7 +37,7 @@ const fetchAll = async (url) => {
       }).then((r) => {
         let dataForFile = JSON.stringify(r.data);
         fs.appendFile(`./allTheWords/${name}.json`, dataForFile, (err) => {
-          if (err) throw err;
+          if (err) return err;
           console.log("Saved!");
         });
       });
@@ -58,8 +58,8 @@ const fetchAll = async (url) => {
 // };
 app.get("/oxford", (req, res) => {
   try {
-    fetchAll(b_url);
-    res.send("ok");
+    let rese = fetchAll(b_url);
+    res.send(rese);
   } catch (error) {
     res.send("error ", error);
   }
