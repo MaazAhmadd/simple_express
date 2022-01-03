@@ -24,7 +24,7 @@ and`;
 
 words = words.split("\n");
 
-const fetchAll = async (url) => {
+const fetchAll = async (url, res) => {
   const res = await Promise.all(
     words.map(async (w) => {
       let name = w.trim().toLowerCase();
@@ -43,7 +43,7 @@ const fetchAll = async (url) => {
           });
         })
         .catch((err) => {
-          return err;
+          return res.send(err);
         });
     })
   );
@@ -62,7 +62,7 @@ const fetchAll = async (url) => {
 // };
 app.get("/oxford", (req, res) => {
   try {
-    let rese = fetchAll(b_url);
+    let rese = fetchAll(b_url, res);
     res.send(rese);
   } catch (error) {
     res.send("error ", error);
