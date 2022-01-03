@@ -34,13 +34,17 @@ const fetchAll = async (url) => {
         secure: false,
         changeOrigin: true,
         logLevel: "debug",
-      }).then((r) => {
-        let dataForFile = JSON.stringify(r.data);
-        fs.appendFile(`./allTheWords/${name}.json`, dataForFile, (err) => {
-          if (err) return err;
-          console.log("Saved!");
+      })
+        .then((r) => {
+          let dataForFile = JSON.stringify(r.data);
+          fs.appendFile(`./allTheWords/${name}.json`, dataForFile, (err) => {
+            if (err) return err;
+            console.log("Saved!");
+          });
+        })
+        .catch((err) => {
+          return err;
         });
-      });
     })
   );
 };
