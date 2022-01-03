@@ -40,6 +40,7 @@ const fetchAll = async (url) => {
         })
         .catch((err) => {
           console.log(err);
+          return err;
         });
     })
   );
