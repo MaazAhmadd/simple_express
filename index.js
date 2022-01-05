@@ -2,67 +2,21 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const axios = require("axios");
-const fs = require("fs");
+app.use("/game", express.static("game"));
 
-// mine
-// let app_id = "f4f41995";
-// let app_key = "3bb69aa9446bb584aac1c0d2f593c779";
-// let language = "en-gb";
-
-// adam
-let app_id = "b2ec966e";
-let app_key = "b67d0c0def9db7bdb0f29a056424e510";
-let language = "en";
-
-b_url = `https://od-api.oxforddictionaries.com:443/api/v2/entries/${language}`;
-
-let words = `Kind
-Take
-the
-be
-and`;
-
-words = words.split("\n");
-
-const fetchAll = async (url) => {
-  return await Promise.all(
-    words.map(async (w) => {
-      let name = w.trim().toLowerCase();
-      return await axios(`${url}/${name}`, {
-        headers: { app_id: app_id, app_key: app_key },
+app.get("/savegame", (req, res) => {
+  const score = req.query.score;
+  const user_id = req.query.user_id;
+  console.log("score : ", score, " user : ", user_id);
+  if (score) {
+    axios
+      .post(`https://api.telegram.org/${process.env.BOT}/setGameHighScore`, {
+        user_id,
+        score,
       })
-        .then((r) => {
-          let dataForFile = JSON.stringify(r.data);
-          fs.appendFile(`./allTheWords/${name}.json`, dataForFile, (err) => {
-            if (err) return err;
-            console.log("Saved!");
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          return err;
-        });
-    })
-  );
-};
-// const fetchAll = async (url) => {
-//   let name = w.trim().toLowerCase();
-//   await axios(`${url}/${name}`, {
-//     headers: { app_id: app_id, app_key: app_key },
-//   }).then((r) => {
-//     let dataForFile = JSON.stringify(r.data);
-//     fs.appendFile(`./allTheWords/${name}.json`, dataForFile, (err) => {
-//       if (err) throw err;
-//       console.log("Saved!");
-//     });
-//   });
-// };
-app.get("/oxford", (req, res) => {
-  try {
-    let rese = fetchAll(b_url);
-    res.send(rese);
-  } catch (error) {
-    res.send("error ", error);
+      .then((r) => {
+        res.send(r.data);
+      });
   }
 });
 const port = process.env.PORT || 3000;
