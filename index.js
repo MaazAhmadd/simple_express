@@ -31,6 +31,7 @@ app.get("/savegame", (req, res) => {
         res.send(r.data);
       });
   }
+  res.send("not send to telegram yet");
 });
 const port = process.env.PORT || 3000;
 app.listen(port, console.log("listening on " + port));

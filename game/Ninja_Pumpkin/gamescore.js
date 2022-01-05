@@ -7,7 +7,7 @@ function sendScore(score) {
   // user_id = "3123423";
 
   fetch(
-    `http://localhost:3000/savegame?user_id=${user_id}&score=${score}&message_id=${message_id}&chat_id=${chat_id}`
+    `https://ninjapumpkin.herokuapp.com/savegame?user_id=${user_id}&score=${score}&message_id=${message_id}&chat_id=${chat_id}`
   )
     .then((response) => response.json())
     .then((data) => console.log(data));
