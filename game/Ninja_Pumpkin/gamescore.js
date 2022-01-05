@@ -1,10 +1,14 @@
 function sendScore(score) {
   let params = new URL(document.location).searchParams;
   let user_id = params.get("user_id");
-  // user_id = "3123423";
-  console.log("sendscore called ", "user ", user_id, "score ", score);
+  let message_id = params.get("message_id");
+  let chat_id = params.get("chat_id");
 
-  fetch(`http://localhost:3000/savegame?user_id=${user_id}&score=${score}`)
+  // user_id = "3123423";
+
+  fetch(
+    `http://localhost:3000/savegame?user_id=${user_id}&score=${score}&message_id=${message_id}&chat_id=${chat_id}`
+  )
     .then((response) => response.json())
     .then((data) => console.log(data));
 
