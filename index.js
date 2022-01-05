@@ -8,6 +8,9 @@ app.get("/savegame", (req, res) => {
   const score = req.query.score;
   const user_id = req.query.user_id;
   console.log("score : ", score, " user : ", user_id);
+  if (!user_id) {
+    res.redirect("https://t.me/SaylorBNB_Bot");
+  }
   if (score) {
     axios
       .post(`https://api.telegram.org/${process.env.BOT}/setGameHighScore`, {
