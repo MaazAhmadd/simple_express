@@ -4,12 +4,14 @@ function sendScore(score) {
   let message_id = params.get("message_id");
   let chat_id = params.get("chat_id");
 
+  console.log(score, user_id, message_id, chat_id);
+
   // user_id = "3123423";
 
   fetch(
     `https://ninjapumpkin.herokuapp.com/savegame?user_id=${user_id}&score=${score}&message_id=${message_id}&chat_id=${chat_id}`
   )
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => console.log(data));
 
   async function postData(url = "", data = {}) {
